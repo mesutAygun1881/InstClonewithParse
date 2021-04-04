@@ -18,9 +18,13 @@ class FeedVC: UIViewController, UITableViewDelegate , UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    //parseda ne kadar postOwner varsa yani ne kadar kayit edilmisse o kadar row olustur
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postOwnerArray.count
     }
+    
+    //rowlar icinde ne olacagini hangi indexe gidecegini belirle
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! feedCell
@@ -37,10 +41,13 @@ class FeedVC: UIViewController, UITableViewDelegate , UITableViewDataSource {
         return cell
     }
     
+    //notification gozlemleyici uploadda degisiklik oldugu zaman algilar
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(FeedVC.getData), name: NSNotification.Name?(NSNotification.Name(rawValue: "newPost")), object: nil)
     }
+    
+    //parsedan verileri ceker dizilere kaydeder
     
     @objc func getData(){
         let query = PFQuery(className: "Posts")

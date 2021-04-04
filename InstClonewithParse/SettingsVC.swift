@@ -20,7 +20,7 @@ class SettingsVC: UIViewController {
     
     @IBAction func logOutClicked(_ sender: Any) {
         
-        
+        //logout parse
         PFUser.logOutInBackground { (error) in
             if error == nil {
                 self.performSegue(withIdentifier: "toSignInVC", sender: nil)

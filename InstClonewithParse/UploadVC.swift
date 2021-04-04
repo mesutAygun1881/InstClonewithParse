@@ -28,6 +28,9 @@ class UploadVC: UIViewController , UIImagePickerControllerDelegate , UINavigatio
         
         self.view.endEditing(true)
     }
+    
+    //telefon kutuphanesinden resim cekme
+    
     @objc func selectImage(){
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -36,18 +39,22 @@ class UploadVC: UIViewController , UIImagePickerControllerDelegate , UINavigatio
         present(picker, animated: true, completion: nil)
     }
     
+    //resim sectikten sonra otomatik kapatma dismiss
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         postImage.image = info[.originalImage] as? UIImage
         self.dismiss(animated: true, completion: nil)
         postButton.isEnabled = true
     }
 
+    //parse kayit islemi 
    
     @IBAction func postClicked(_ sender: Any) {
         postButton.isEnabled = false
         
         let object = PFObject(className: "Posts")
-        let like = PFObject(className: "likes")
+        let like = PFObject(className: "likes") //likes olusturmadik
+        
         //IMAGE KAYDETME
         
         let data = postImage.image?.jpegData(compressionQuality: 0.5)
